@@ -28,14 +28,17 @@ class BlogApplicationTests {
 	@Test
 	public void postSerializationTest() throws IOException {
 		// Given Inputs
-		Post post = new Post(1L, "aaa");
+		Post post = new Post(1L);
 		// Whether the given inputs were serialized
 		assertThat(json.write(post)).isStrictlyEqualToJson("expected.json");
 		assertThat(json.write(post)).hasJsonPathNumberValue("@.id");
 		assertThat(json.write(post)).extractingJsonPathNumberValue("@.id").isEqualTo(1);
-		
+
+
 	}
 
 }
 
 
+//		assertThat(json.write(post)).hasJsonPathStringValue("@.content");
+//		assertThat(json.write(post)).extractingJsonPathStringValue("@.content").isEqualTo("aaa");

@@ -1,4 +1,4 @@
 package com.example.blog;
 
-public record Post (Long id, String contents){
+public record Post (Long id){
 }
