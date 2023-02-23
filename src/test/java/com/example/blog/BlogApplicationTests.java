@@ -34,9 +34,18 @@ class BlogApplicationTests {
 		assertThat(json.write(post)).hasJsonPathNumberValue("@.id");
 		assertThat(json.write(post)).extractingJsonPathNumberValue("@.id").isEqualTo(1);
 
-
 	}
 
+	@Test
+	public void postDeserializationTest() throws IOException {
+		String expected = """
+    			{ 
+    				"id":1
+    			}
+				""";
+		assertThat(json.parse(expected)).isEqualTo(new Post(2L));
+		assertThat(json.parseObject(expected).id()).isEqualTo(2);
+	}
 }
 
 
