@@ -15,12 +15,14 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+// SpringBootTest setting up the environment for the test
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BlogApplicationTests {
+	// @Autowired -> it seems like it is a user
 	@Autowired
 	TestRestTemplate restTemplate;
 
+	// @Test test case -> user behavior : user is requesting to see something
 	@Test
 	void shouldReturnAPostWhenDataIsSaved() {
 		ResponseEntity<String> response = restTemplate.getForEntity("/posts/99", String.class);
@@ -31,6 +33,7 @@ class BlogApplicationTests {
 		assertThat(id).isNotNull();
 	}
 
+	// @Test test case2 -> user behavior : user is trying to access something but doesn't exist
 	@Test
 	void shouldNotReturnPostUnknown() {
 		ResponseEntity<String> response = restTemplate.getForEntity("/posts/111111", String.class);
