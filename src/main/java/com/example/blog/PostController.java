@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/posts")
 public class PostController {
     @GetMapping("/{requestedId}")
-    public ResponseEntity<String> findById() {
-        return ResponseEntity.ok("{}");
+    public ResponseEntity<Post> findById() {
+        Post postTest = new Post(99L,"Hello~~~");
+        return ResponseEntity.ok(postTest);
     }
 }

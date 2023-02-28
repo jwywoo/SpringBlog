@@ -1,5 +1,7 @@
 package com.example.blog;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
@@ -23,6 +25,17 @@ class BlogApplicationTests {
 	void shouldReturnAPostWhenDataIsSaved() {
 		ResponseEntity<String> response = restTemplate.getForEntity("/posts/99", String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+		DocumentContext documentContext = JsonPath.parse(response.getBody());
+		Number id = documentContext.read("$.id");
+		assertThat(id).isNotNull();
+	}
+
+	@Test
+	void shouldNotReturnPostUnknown() {
+		ResponseEntity<String> response = restTemplate.getForEntity("posts/111111", String.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		assertThat(response.getBody()).isBlank();
 	}
 }
 
